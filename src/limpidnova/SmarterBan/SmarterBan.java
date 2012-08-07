@@ -18,7 +18,6 @@ import org.bukkit.plugin.PluginManager;
  */
 public class SmarterBan extends JavaPlugin {
     private final SmarterBanPlayerListener playerListener = new SmarterBanPlayerListener(this);
-    private final SmarterBanBlockListener blockListener = new SmarterBanBlockListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 
     public SmarterBan(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {

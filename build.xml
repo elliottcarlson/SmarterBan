@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SmarterBan" default="all">
+  <property file="SmarterBan.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module SmarterBan -->
+  
+  <dirname property="module.SmarterBan.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.SmarterBan" value="${compiler.args}"/>
+  
+  <property name="SmarterBan.output.dir" value="${module.SmarterBan.basedir}/out/production/SmarterBan"/>
+  <property name="SmarterBan.testoutput.dir" value="${module.SmarterBan.basedir}/out/test/SmarterBan"/>
+  
+  <path id="SmarterBan.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="SmarterBan.module.production.classpath"/>
+  
+  <path id="SmarterBan.runtime.production.module.classpath">
+    <pathelement location="${SmarterBan.output.dir}"/>
+  </path>
+  
+  <path id="SmarterBan.module.classpath">
+    <pathelement location="${SmarterBan.output.dir}"/>
+  </path>
+  
+  <path id="SmarterBan.runtime.module.classpath">
+    <pathelement location="${SmarterBan.testoutput.dir}"/>
+    <pathelement location="${SmarterBan.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.SmarterBan">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.SmarterBan">
+    <patternset refid="excluded.from.module.SmarterBan"/>
+  </patternset>
+  
+  <path id="SmarterBan.module.sourcepath">
+    <dirset dir="${module.SmarterBan.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.SmarterBan" depends="compile.module.SmarterBan.production,compile.module.SmarterBan.tests" description="Compile module SmarterBan"/>
+  
+  <target name="compile.module.SmarterBan.production" description="Compile module SmarterBan; production classes">
+    <mkdir dir="${SmarterBan.output.dir}"/>
+    <javac destdir="${SmarterBan.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.SmarterBan}"/>
+      <bootclasspath refid="SmarterBan.module.bootclasspath"/>
+      <classpath refid="SmarterBan.module.production.classpath"/>
+      <src refid="SmarterBan.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.SmarterBan"/>
+    </javac>
+    
+    <copy todir="${SmarterBan.output.dir}">
+      <fileset dir="${module.SmarterBan.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.SmarterBan.tests" depends="compile.module.SmarterBan.production" description="compile module SmarterBan; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.SmarterBan" description="cleanup module">
+    <delete dir="${SmarterBan.output.dir}"/>
+    <delete dir="${SmarterBan.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.SmarterBan" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.SmarterBan" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>
